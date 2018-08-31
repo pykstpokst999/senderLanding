@@ -1,0 +1,133 @@
+//
+// Bootstrap 4 tables adjustments
+//
+
+///////////////////////
+table.Table {
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 15px 50px 0px rgba(98, 98, 98, 0.1);
+  width: 100%;
+  border-collapse: collapse;
+}
+table.Table td, table.Table th {
+  padding: 3px 2px;
+}
+table.Table tbody td {
+  font-size: 15px;
+  height: 50px;
+  text-align: center;
+}
+table.Table tr:nth-child(even) {
+  background-color: rgb(248, 248, 248);
+}
+table.Table thead {
+  background: #F5F5F5;
+  border-bottom: 0px solid #444444;
+}
+table.Table thead th {
+  font-size: 17px;
+  font-weight: normal;
+  text-align: center;
+  border-left: 0px solid #FFFFFF;
+  height: 50px;
+}
+table.Table thead th:first-child {
+  border-left: none;
+}
+/////////////////////
+
+
+.table {
+  background-color: $table-bg;
+  th,
+  td {
+    padding: $table-cell-padding;
+    border-top: none;
+
+  }
+
+  .table {
+    background-color: $body-bg;
+  }
+}
+
+.table{
+  thead{
+    th {
+      border-bottom: none;
+    }
+  }
+}
+
+//
+// Condensed table w/ half padding
+//
+
+.table-sm {
+  th,
+  td {
+    padding: $table-cell-padding-sm;
+  }
+}
+
+
+// Table backgrounds
+//
+// Exact selectors below required to override `.table-striped` and prevent
+// inheritance to nested tables.
+
+@each $color, $value in $theme-colors {
+  @include table-row-variant($color, theme-color-level($color, -9));
+}
+
+@include table-row-variant(active, $table-active-bg);
+
+
+// Dark styles
+//
+// Same table markup, but inverted color scheme: dark background and light text.
+
+// stylelint-disable-next-line no-duplicate-selectors
+.table {
+  .thead-dark {
+    th {
+      color: $table-dark-color;
+      background-color: $table-dark-bg;
+      border-color: $table-dark-border-color;
+    }
+  }
+
+  .thead-light {
+    th {
+      color: $table-head-color;
+      background-color: $table-head-bg;
+      border-color: $table-border-color;
+    }
+  }
+}
+
+.table-dark {
+  color: $table-dark-color;
+  background-color: $table-dark-bg;
+
+  th,
+  td,
+  thead th {
+    border-color: $table-dark-border-color;
+  }
+
+  &.table-striped {
+    tbody tr:nth-of-type(odd) {
+      background-color: $table-dark-accent-bg;
+    }
+  }
+
+  &.table-hover {
+    tbody tr {
+      @include hover {
+        background-color: $table-dark-hover-bg;
+      }
+    }
+  }
+}

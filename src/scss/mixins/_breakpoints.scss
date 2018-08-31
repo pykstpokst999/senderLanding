@@ -1,0 +1,335 @@
+// Breakpoint viewport sizes and media queries.
+//
+// Breakpoints are defined as a map of (name: minimum width), order from small to large:
+//
+//    (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px)
+//
+// The map defined in the `$grid-breakpoints` global variable is used as the `$breakpoints` argument by default.
+
+// Name of the next breakpoint, or null for the last breakpoint.
+//
+//    >> breakpoint-next(sm)
+//    md
+//    >> breakpoint-next(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    md
+//    >> breakpoint-next(sm, $breakpoint-names: (xs sm md lg xl))
+//    md
+@function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
+  $n: index($breakpoint-names, $name);
+  @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+}
+
+// Minimum breakpoint width. Null for the smallest (first) breakpoint.
+//
+//    >> breakpoint-min(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    576px
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+  $min: map-get($breakpoints, $name);
+  @return if($min != 0, $min, null);
+}
+
+// Maximum breakpoint width. Null for the largest (last) breakpoint.
+// The maximum value is calculated as the minimum of the next one less 0.02px
+// to work around the limitations of `min-` and `max-` prefixes and viewports with fractional widths.
+// See https://www.w3.org/TR/mediaqueries-4/#mq-min-max
+// Uses 0.02px rather than 0.01px to work around a current rounding bug in Safari.
+// See https://bugs.webkit.org/show_bug.cgi?id=178261
+//
+//    >> breakpoint-max(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    767.98px
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
+  $next: breakpoint-next($name, $breakpoints);
+  @return if($next, breakpoint-min($next, $breakpoints) - .02px, null);
+}
+
+// Returns a blank string if smallest breakpoint, otherwise returns the name with a dash infront.
+// Useful for making responsive utilities.
+//
+//    >> breakpoint-infix(xs, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    ""  (Returns a blank string)
+//    >> breakpoint-infix(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    "-sm"
+@function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
+  @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+}
+////workds on opera
+
+noindex:-o-prefocus, .selector{
+
+  margin-left: 3em;
+
+}
+/////works on MICROSOFT-EDGE
+@supports (-ms-ime-align:auto) {
+  .bg-card{
+    top:1280px;
+  }
+}
+ //safari
+_::-webkit-full-page-media, _:future, :root .safari_only {
+
+  color:#0000FF;
+  background-color:#CCCCCC;
+
+}
+
+/////works on IE
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .mie {
+    margin-left:90px;
+  }
+  .lead{
+    white-space:normal;
+  }
+  .wrap{
+    white-space:nowrap;
+  }
+  .logos_bg{
+    width:300px;
+  }
+  .up{
+    margin-top:-75px;
+  }
+  .get-up{
+    margin-top:25px;
+  }
+}
+
+
+////////works on firefox
+@-moz-document url-prefix() {
+  .dropdown-toggle::after {
+    margin-top:-15px;
+  }
+  .dropdown-toggle.caret-up::after{
+    margin-top:-15px;
+  }
+  .btn{
+    line-height:2;
+  }
+  .btn-outline-gradient{
+    line-height: 48px;
+  }
+  .bg-card{
+    top:1280px;
+    background-size: 780px 650px;
+  }
+}
+
+
+/////works on CHROME
+@media screen and (-webkit-min-device-pixel-ratio:0)
+and (min-resolution:.001dpcm) {
+  .middlecard {
+    height: 510px;
+  }
+  .bg-card {
+    top: 1630px;
+    background-size: 750px 680px;
+  }
+}
+
+//smallscreen breakpoint
+@media (min-width: 320px) and (max-width: 750px) {
+  .orange-text{
+    text-align: center;
+  }
+  .hide-button{
+    display:inline-block;
+  }
+  .hide-carousel{
+    display: inline-block;
+  }
+  .hide-speech{
+    display:none;
+  }
+}
+
+//medium breakpoint
+@media (min-width: 992px) and (max-width: 1684px) {
+  //.bg-gif{
+  //  background-size: 400px 250px;
+  //}
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+
+  /*Chrome CSS here*/
+
+  .middlecard{
+    height:510px;
+  }
+}
+
+
+//large breakpoint
+@media (min-width: 0px) and (max-width: 992px) {
+  .middlecard{
+    height:440px;
+  }
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+
+    /*Chrome CSS here*/
+
+    .middlecard{
+      height:504px;
+    }
+  }
+
+  .bg-pc{
+    display:none;
+  }
+  .bg-gif{
+    display:none;
+  }
+
+  .bg-card{
+    display:none;
+  }
+  .hide{
+    display:none;
+  }
+  .middle-card-shadow {
+    box-shadow: none;
+  }
+  table.Table {
+    height: 700px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1449px){
+
+  .bg-card{
+    background-size: 500px 400px;
+    left: 65px;
+    top: 1500px;
+  }
+}
+
+@media (min-height: 546px) and (max-height:854px){
+  .bg-pc {
+    background-size: 500px 500px;
+    top: 85px;
+  }
+}
+
+@media (min-height: 0px) and (max-height:546px){
+  .bg-pc {
+    display:none;
+  }
+}
+
+@media (min-width: 1449px) and (max-width: 1800px) {
+  .bg-card{
+    background-size: 600px 500px;
+    left: 110px;
+    top: 1627px;
+  }
+  @-moz-document url-prefix() {
+    .bg-card{
+      top:1433px;
+    }
+  }
+  @supports (-ms-ime-align:auto) {
+    .bg-card{
+      top:1300px;
+    }
+  }
+}
+//1166
+@media (min-width: 992px) and (max-width: 1449px) {
+.bg-pc {
+  background-size: 500px 500px;
+}
+}
+
+@media (max-width: 1200px) and (min-width: 992px) {
+  .bg-card {
+    background-size: 400px 300px;
+    left: 42px;
+    top: 1700px;
+  }
+}
+
+@media (max-width: 992px) and (min-width: 768px) {
+  .jumbo .nav-start-button{
+    margin-left: 280px;
+  }
+}
+@media (max-width: 768px) and (min-width: 576px) {
+  .jumbo .nav-start-button{
+    margin-left: 100px;
+  }
+  .size-button{
+    margin-top:485px;
+  }
+}
+
+// Media of at least the minimum breakpoint width. No query for the smallest breakpoint.
+// Makes the @content apply to the given breakpoint and wider.
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+// Media of at most the maximum breakpoint width. No query for the largest breakpoint.
+// Makes the @content apply to the given breakpoint and narrower.
+@mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
+  $max: breakpoint-max($name, $breakpoints);
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+// Media that spans multiple breakpoint widths.
+// Makes the @content apply between the min and max breakpoints
+@mixin media-breakpoint-between($lower, $upper, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($lower, $breakpoints);
+  $max: breakpoint-max($upper, $breakpoints);
+
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max == null {
+    @include media-breakpoint-up($lower, $breakpoints) {
+      @content;
+    }
+  } @else if $min == null {
+    @include media-breakpoint-down($upper, $breakpoints) {
+      @content;
+    }
+  }
+}
+
+// Media between the breakpoint's minimum and maximum widths.
+// No minimum for the smallest breakpoint, and no maximum for the largest one.
+// Makes the @content apply only to the given breakpoint, not viewports any wider or narrower.
+@mixin media-breakpoint-only($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+  $max: breakpoint-max($name, $breakpoints);
+
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max == null {
+    @include media-breakpoint-up($name, $breakpoints) {
+      @content;
+    }
+  } @else if $min == null {
+    @include media-breakpoint-down($name, $breakpoints) {
+      @content;
+    }
+  }
+}

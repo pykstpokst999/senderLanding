@@ -1,0 +1,134 @@
+// Carousel adjustments
+
+.carousel {
+}
+
+.carousel-item {
+  @include transition($carousel-transition);
+}
+
+
+// Left/right controls for nav
+.carousel-control-prev,
+.carousel-control-next {
+  width: $carousel-control-width;
+  color: $carousel-control-color;
+  opacity: $carousel-control-opacity;
+
+  // Hover/focus state
+  @include hover-focus {
+    color: $carousel-control-color;
+  }
+}
+
+// Icons for within
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: $carousel-control-icon-width;
+  height: $carousel-control-icon-width;
+}
+
+.carousel-control-prev-icon {
+  background-image: $carousel-control-prev-icon-bg;
+}
+
+.carousel-control-next-icon {
+  background-image: $carousel-control-next-icon-bg;
+}
+
+// Optional indicator pips
+.carousel-indicators {
+  align-items:center;
+
+  li {
+    margin-left: $carousel-indicator-spacer;
+    //background-color: rgba($carousel-indicator-active-bg, .5);
+    margin-top:0px;
+    height: 8px;
+    width: 8px;
+    margin-right: 10px;
+    background: rgb(71, 74, 69);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .active {
+    background: -moz-linear-gradient(0deg, #f01a01 0%, #f8832e 100%); /* ff3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, #f01a01), color-stop(100%, #f8832e)); /* safari4+,chrome */
+    background: -webkit-linear-gradient(0deg, #f01a01 0%, #f8832e 100%); /* safari5.1+,chrome10+ */
+    background: -o-linear-gradient(0deg, #f01a01 0%, #f8832e 100%); /* opera 11.10+ */
+    background: -ms-linear-gradient(0deg, #f01a01 0%, #f8832e 100%); /* ie10+ */
+    background: linear-gradient(90deg, #f01a01 0%, #f8832e 100%); /* w3c */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f01a01', endColorstr='#f8832e',GradientType=1 ); /* ie6-9 */
+    height: 10px;
+    width: 10px;
+  }
+}
+
+
+.jumbo .carousel-indicators2 {
+  position: absolute;
+  bottom: -50px;
+  left: 225px;
+  right:auto;
+  z-index: 15;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  align-items: center;
+  margin-right: auto;
+  margin-left: auto;
+
+  li {
+
+    position: relative;
+    flex: 0 1 auto;
+    margin-left: $carousel-indicator-spacer;
+    text-indent: -999px;
+    margin-top: 0px;
+    height: 8px;
+    width: 8px;
+    margin-right: 10px;
+    background: rgb(190, 190, 190);
+    border-radius: 50%;
+    display: inline-block;
+
+    // Use pseudo classes to increase the hit area by 10px on top and bottom.
+    &::before {
+      position: absolute;
+      top: -10px;
+      left: 0;
+      display: inline-block;
+      width: 100%;
+      height: 10px;
+      content: "";
+    }
+    &::after {
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      display: inline-block;
+      width: 100%;
+      height: 10px;
+      content: "";
+    }
+  }
+  .active {
+    background: -moz-linear-gradient(0deg, #f01a01 0%, #f8832e 100%); /* ff3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, #f01a01), color-stop(100%, #f8832e)); /* safari4+,chrome */
+    background: -webkit-linear-gradient(0deg, #f01a01 0%, #f8832e 100%); /* safari5.1+,chrome10+ */
+    background: -o-linear-gradient(0deg, #f01a01 0%, #f8832e 100%); /* opera 11.10+ */
+    background: -ms-linear-gradient(0deg, #f01a01 0%, #f8832e 100%); /* ie10+ */
+    background: linear-gradient(90deg, #f01a01 0%, #f8832e 100%); /* w3c */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f01a01', endColorstr='#f8832e',GradientType=1 ); /* ie6-9 */
+    height: 10px;
+    width: 10px;
+  }
+}
+
+// Optional captions
+.carousel-caption {
+  right: ((100% - $carousel-caption-width) / 2);
+  left: ((100% - $carousel-caption-width) / 2);
+  color: $carousel-caption-color;
+}
